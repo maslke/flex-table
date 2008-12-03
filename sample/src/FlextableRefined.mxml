@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" creationComplete="initApp();" xmlns:table="com.siloon.containers.table.*">
+	<mx:Script>
+		<![CDATA[
+			import mx.controls.RadioButton;
+			import mx.controls.Button;
+			import mx.core.UIComponent;
+			import com.siloon.containers.table.Row;
+			import mx.controls.Text;
+			import mx.controls.TextArea;
+			import com.siloon.containers.table.Cell;
+			import mx.controls.TextInput;
+			import com.siloon.containers.table.Table;
+			
+			private var table:Table;
+			
+			private function initApp():void
+			{
+				table = Table.createTable(800,5,8);
+				container.addChild(table);
+				
+				insert();
+			}
+			
+			private function insert():void
+			{
+				remove();
+				
+				var count:int = 0;
+				var uic:UIComponent;
+				for each(var cell:Cell in table.cells)
+				{					
+					switch(count % 3)
+					{
+						case 0:
+							var textInput:TextInput = new TextInput();
+							textInput.text = "textinput" + count;
+							uic = textInput;								
+							break;
+						case 1:
+							var button:Button = new Button();
+							button.label = "button" + count;
+							uic = button;
+							break;
+						case 2:
+							var radioButton:RadioButton = new RadioButton();
+							uic = radioButton;
+							break;
+					}
+					
+					uic.percentHeight = 100;
+					uic.percentWidth = 100;
+					table.insertChildAt(uic,Row(cell.parent).position,cell.position);	
+					count ++;
+				}	
+			}
+			
+			private function remove():void
+			{
+				for each(var cell:Cell in table.cells)
+				{
+					table.removeChildrenFrom(Row(cell.parent).position,cell.position);	
+				}
+			}
+			
+			private function removeSelected():void
+			{
+				for each(var cell:Cell in table.selectedCells)
+				{
+					table.removeChildrenFrom(Row(cell.parent).position,cell.position);	
+				}
+			}
+		]]>
+	</mx:Script>
+	<mx:Panel id="container" width="100%" height="100%">
+		
+		<mx:ControlBar>
+			<mx:Button label="insert controls" click="insert()"/>
+			<mx:Button label="remove all controls" click="remove()"/>
+			<mx:Button label="remove controls from selected cell" click="removeSelected()"/>
+		</mx:ControlBar>
+	</mx:Panel>
+</mx:Application>

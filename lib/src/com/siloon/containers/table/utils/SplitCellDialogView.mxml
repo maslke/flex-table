@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SplitCellDialog xmlns="com.siloon.containers.table.utils.*" xmlns:mx="http://www.adobe.com/2006/mxml" 
+	width="200" height="180"
+	title="Split Cells"	
+	styleName="SplitCellDialog"
+	close="closeHandler(event)">
+	<mx:Style source="../assets/table.css"/>
+	<mx:Form>
+		<mx:FormItem label="Columns">
+			<mx:NumericStepper id="colNum" />
+		</mx:FormItem>
+		<mx:FormItem label="Rows">
+			<mx:NumericStepper id="rowNum" 
+				creationComplete="removeRowNumDefaultButtonHandler()"  
+				click="rowNumClickHandler(event)"/>
+		</mx:FormItem>
+	</mx:Form>
+	<mx:ControlBar>
+		<mx:Button label="Confirm" 
+			click="confirm()"/>
+			
+		<mx:Button label="Cancel" 
+			click="cancel()"/>
+	</mx:ControlBar>	
+</SplitCellDialog>
