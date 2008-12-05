@@ -1,5 +1,6 @@
 package com.siloon.containers.table
 {
+	import com.adobe.serialization.json.JSON;
 	import com.siloon.containers.table.constant.CellConst;
 	import com.siloon.containers.table.constant.Cursor;
 	import com.siloon.containers.table.constant.CursorState;
@@ -16,14 +17,12 @@ package com.siloon.containers.table
 	import com.siloon.containers.table.utils.SplitCellDialog;
 	import com.siloon.plugin.rightClick.RightClickManager;
 	
-	import flash.display.DisplayObject;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.geom.Point;
 	
 	import mx.collections.ArrayCollection;
 	import mx.controls.Menu;
-	import mx.controls.TextArea;
 	import mx.core.Application;
 	import mx.core.UIComponent;
 	import mx.events.FlexEvent;
@@ -2484,6 +2483,77 @@ package com.siloon.containers.table
 
 			var cell:Cell = Cell(row.getChildAt(cellPosition));
 			cell.addChild(child);
-		}			
+		}
+		
+		public static function getTableStructure(table:Table):String
+		{	
+			if(table == null)
+			{
+				return "";
+			}
+			
+			var tbl:Object = new Object();
+			tbl.rows = new Array();
+			
+			var result:String = "";
+			
+			for each(var row:Row in table.getChildren().sortOn("position",Array.NUMERIC))
+			{
+				
+				var rowObj:Object = new Object();
+				rowObj.cells = new Array();
+				rowObj.position = row.position;
+				
+				rowObj.height = row.height;
+				
+				tbl.rows.push(rowObj);
+				
+				for each(var cell:Cell in row.getChildren().sortOn("position",Array.NUMERIC))
+				{
+					var cellObj:Object = new Object();
+					cellObj.position = cell.position;
+					
+					cellObj.width = cell.width;
+					cellObj.gridRowSpan = cell.gridRowSpan;
+					cellObj.gridColSpan = cell.gridColSpan;
+					
+					rowObj.cells.push(cellObj);
+				}
+			}
+			
+			result = JSON.encode(tbl);
+			return result;
+		} 	
+		
+		public static function parseFromStructure(structure:String):Table
+		{
+			if(structure == "")
+			{
+				return null;
+			}
+			
+			var tbl:Object = JSON.decode(structure);
+			var table:Table = new Table();;
+			
+			for each(var rowObj:Object in tbl.rows.sortOn("position",Array.NUMERIC))
+			{
+				var row:Row = new Row();								
+				table.addChild(row);
+				
+				row.height = rowObj.height;
+				
+				for each(var cellObj:Object in rowObj.cells.sortOn("position",Array.NUMERIC))
+				{
+					var cell:Cell = new Cell();
+					row.addChild(cell);
+					
+					cell.width = cellObj.width;
+					cell.gridRowSpan = cellObj.gridRowSpan;
+					cell.gridColSpan = cellObj.gridColSpan;
+				}
+			}
+			
+			return table;
+		} 			
 	}
 }

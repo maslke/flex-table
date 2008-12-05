@@ -1,6 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <flexLibProperties version="1">
-<includeClasses/>
+<includeClasses>
+<classEntry path="com.siloon.containers.table.Cell"/>
+<classEntry path="com.siloon.containers.table.Row"/>
+<classEntry path="com.siloon.containers.table.Table"/>
+<classEntry path="com.siloon.containers.table.constant.CellConst"/>
+<classEntry path="com.siloon.containers.table.constant.Cursor"/>
+<classEntry path="com.siloon.containers.table.constant.CursorState"/>
+<classEntry path="com.siloon.containers.table.constant.MenuConst"/>
+<classEntry path="com.siloon.containers.table.events.EndChangeCellWidthEvent"/>
+<classEntry path="com.siloon.containers.table.events.EndChangeColumnWidthEvent"/>
+<classEntry path="com.siloon.containers.table.events.EndChangeRowHeightEvent"/>
+<classEntry path="com.siloon.containers.table.events.SelectCellEvent"/>
+<classEntry path="com.siloon.containers.table.events.SelectColumnEvent"/>
+<classEntry path="com.siloon.containers.table.events.SelectRowEvent"/>
+<classEntry path="com.siloon.containers.table.events.StartChangeCellWidthEvent"/>
+<classEntry path="com.siloon.containers.table.events.StartChangeRowHeightEvent"/>
+<classEntry path="com.siloon.containers.table.grid.Grid"/>
+<classEntry path="com.siloon.containers.table.grid.GridItem"/>
+<classEntry path="com.siloon.containers.table.grid.GridRow"/>
+<classEntry path="com.siloon.containers.table.grid.gridClasses.GridColumnInfo"/>
+<classEntry path="com.siloon.containers.table.grid.gridClasses.GridRowInfo"/>
+<classEntry path="com.siloon.containers.table.sortOnWithNamespace"/>
+<classEntry path="com.siloon.containers.table.table_internal"/>
+<classEntry path="com.siloon.containers.table.utils.SplitCellDialog"/>
+<classEntry path="com.siloon.containers.table.utils.SplitCellDialogView"/>
+</includeClasses>
 <includeResources/>
 <namespaceManifests/>
 </flexLibProperties>
