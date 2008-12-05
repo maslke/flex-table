@@ -2,6 +2,7 @@
 <mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" creationComplete="initApp();" xmlns:table="com.siloon.containers.table.*">
 	<mx:Script>
 		<![CDATA[
+			import mx.controls.Alert;
 			import mx.controls.RadioButton;
 			import mx.controls.Button;
 			import mx.core.UIComponent;
@@ -70,6 +71,25 @@
 					table.removeChildrenFrom(Row(cell.parent).position,cell.position);	
 				}
 			}
+			
+			private var structure:String = "";
+			
+			private function getTableStructure():void
+			{
+				structure = Table.getTableStructure(table);
+				System.setClipboard(structure);
+				Alert.show("your table structure has been copy to your clickboard");
+			}
+			
+			private function parseFromStructure():void
+			{
+				var newTable:Table = Table.parseFromStructure(structure);
+				if(newTable != null)
+				{
+			 		container.addChild(newTable);
+			 	}
+			}
+			
 		]]>
 	</mx:Script>
 	<mx:Panel id="container" width="100%" height="100%">
@@ -78,6 +98,8 @@
 			<mx:Button label="insert controls" click="insert()"/>
 			<mx:Button label="remove all controls" click="remove()"/>
 			<mx:Button label="remove controls from selected cell" click="removeSelected()"/>
+			<mx:Button label="get table structure" click="getTableStructure();"/>
+			<mx:Button label="parst from structure" click="parseFromStructure();"/>
 		</mx:ControlBar>
 	</mx:Panel>
 </mx:Application>
